@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+from os import path, urandom
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,7 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# HTTPS
+# SECURITY WARNING: the following settings are based on
+#     manage.py check --deploy
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 5
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -28,7 +29,11 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vej^f-o6i$#+wmxug7v0kt$q9$m65@n^2_e(rj$2@x5&v@wt@i'
+SECRET_KEY = urandom(32)
+key_path = path.join('/etc/meet-accountmanager', 'key')
+if path.isfile(key_path):
+    with open(key_path, 'r') as key_file:
+        SECRET_KEY = bytes.fromhex(key_file.read())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
