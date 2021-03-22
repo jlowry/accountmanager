@@ -19,19 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# HTTPS
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 5
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'vej^f-o6i$#+wmxug7v0kt$q9$m65@n^2_e(rj$2@x5&v@wt@i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
@@ -45,6 +37,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'accounts',
+    'tracdb',
     'registration',
     'django.contrib.admin',
     'django.contrib.auth',

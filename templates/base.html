@@ -142,17 +142,16 @@
     </ul>
 </nav>
 
+{% block main %}
 <main>
 <div class="mp-section">
   <div>
     <h1>{% block title %}{% endblock %}</h1>
     {% block content %}{% endblock %}
   </div>
-  <div>
-    {% block content-related %}{% endblock %}
-  </div>
 </div>
 </main>
+{% endblock %}
 
 <footer id="foundation-footer">
 
