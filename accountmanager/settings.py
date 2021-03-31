@@ -35,13 +35,25 @@ if path.isfile(key_path):
     with open(key_path, 'r') as key_file:
         SECRET_KEY = bytes.fromhex(key_file.read())
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jitsi@publiccode.net'
+EMAIL_HOST_PASSWORD = '' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'do-not-reply@publiccode.net'
 
+email_password_path = path.join('/etc/meet-accountmanager', 'email_password')
+if path.isfile(email_password_path):
+    with open(email_password_path, 'r') as email_password_file:
+        EMAIL_HOST_PASSWORD = email_password_file.read()
 
 ALLOWED_HOSTS = ['*']
 
+REGISTRATION_ADMINS = [('Approval Needed', 'meet-community-approval@publiccode.net')]
 
 # Application definition
 # PASSWORD_HASHERS = [
@@ -91,6 +103,8 @@ TEMPLATES = [
     },
 ]
 
+STATIC_ROOT = BASE_DIR / 'static2'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
@@ -105,7 +119,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '../database.cnf',
+            'read_default_file': '/etc/meet-accountmanager/database.cnf',
         },
     }
 }
@@ -146,5 +160,4 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
+STATIC_URL = '/static2/'
